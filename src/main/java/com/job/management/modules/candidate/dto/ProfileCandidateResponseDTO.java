@@ -1,22 +1,30 @@
 package com.job.management.modules.candidate.dto;
 
-import lombok.AllArgsConstructor;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Data
+@Schema(description = "DTO de resposta para o perfil do candidato")
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class ProfileCandidateResponseDTO {
+public record ProfileCandidateResponseDTO(
 
-  private UUID id;
-  private String description;
-  private String fullName;
-  private String email;
-  private String location;
-  private String curriculum;
+  @Schema(description = "ID do candidato", example = "123e4567-e89b-12d3-a456-426614174000")
+  UUID id,
+
+  @Schema(description = "Descrição do candidato", example = "Desenvolvedor Java com 5 anos de experiência")
+  String description,
+
+  @Schema(description = "Nome completo do candidato", example = "João da Silva")
+  String fullName,
+
+  @Schema(description = "Email do candidato", example = "joao.silva@example.com")
+  String email,
+
+  @Schema(description = "Localização do candidato", example = "São Paulo, SP")
+  String location,
+
+  @Schema(description = "Currículo do candidato em formato PDF", example = "url/para/curriculo.pdf")
+  String curriculum
+) {
 }
