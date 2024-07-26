@@ -25,10 +25,10 @@ public class JobsController {
 
         try {
             var jobs = Jobs.builder()
-                    .benefits(createJobDTO.getBenefits())
+                    .benefits(createJobDTO.benefits())
                     .companyId(UUID.fromString(companyId.toString()))
-                    .description(createJobDTO.getDescription())
-                    .level(createJobDTO.getLevel())
+                    .description(createJobDTO.description())
+                    .level(createJobDTO.level())
                     .build();
 
             var result = this.createJobsUseCase.execute(jobs);
