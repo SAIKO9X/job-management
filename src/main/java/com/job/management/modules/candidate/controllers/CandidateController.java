@@ -1,13 +1,12 @@
 package com.job.management.modules.candidate.controllers;
 
-
 import com.job.management.modules.candidate.dto.ProfileCandidateResponseDTO;
 import com.job.management.modules.candidate.entities.Candidate;
+import com.job.management.modules.candidate.usecases.ApplyJobCandidateUseCase;
 import com.job.management.modules.candidate.usecases.CreateCandidateUseCase;
+import com.job.management.modules.candidate.usecases.ListAllJobsByFilterUseCase;
+import com.job.management.modules.candidate.usecases.ProfileCandidateUseCase;
 import com.job.management.modules.company.entities.Jobs;
-import com.job.management.modules.company.usecases.ApplyJobCandidateUseCase;
-import com.job.management.modules.company.usecases.ListAllJobsByFilterUseCase;
-import com.job.management.modules.company.usecases.ProfileCandidateUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;

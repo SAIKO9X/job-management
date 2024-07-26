@@ -1,4 +1,4 @@
-package com.job.management.modules.company.usecases;
+package com.job.management.modules.candidate.usecases;
 
 import com.job.management.modules.company.entities.Jobs;
 import com.job.management.modules.company.repositories.JobsRepository;

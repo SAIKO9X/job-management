@@ -6,6 +6,7 @@ import com.job.management.exceptions.EmailNotFoundException;
 import com.job.management.modules.company.dto.AuthCompanyDTO;
 import com.job.management.modules.company.dto.AuthCompanyResponseDTO;
 import com.job.management.modules.company.repositories.CompanyRepository;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,7 @@ import java.util.List;
 @Service
 public class AuthCompanyUseCase {
 
+  @Setter
   @Value("${security.token.secret}")
   private String secretKey;
 
@@ -47,7 +49,6 @@ public class AuthCompanyUseCase {
       .withExpiresAt(expiresIn)
       .withClaim("roles", List.of("COMPANY"))
       .sign(algorithm);
-
 
     return new AuthCompanyResponseDTO(token, expiresIn.toEpochMilli());
   }

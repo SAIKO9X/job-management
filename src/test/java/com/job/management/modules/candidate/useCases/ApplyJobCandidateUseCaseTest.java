@@ -8,7 +8,7 @@ import com.job.management.modules.candidate.repositories.ApplyJobRepository;
 import com.job.management.modules.candidate.repositories.CandidateRepository;
 import com.job.management.modules.company.entities.Jobs;
 import com.job.management.modules.company.repositories.JobsRepository;
-import com.job.management.modules.company.usecases.ApplyJobCandidateUseCase;
+import com.job.management.modules.candidate.usecases.ApplyJobCandidateUseCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

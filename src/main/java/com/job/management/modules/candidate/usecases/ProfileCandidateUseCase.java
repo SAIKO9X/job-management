@@ -1,4 +1,4 @@
-package com.job.management.modules.company.usecases;
+package com.job.management.modules.candidate.usecases;
 
 import com.job.management.exceptions.UserNotFoundException;
 import com.job.management.modules.candidate.dto.ProfileCandidateResponseDTO;
