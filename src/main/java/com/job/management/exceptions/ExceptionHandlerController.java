@@ -16,20 +16,37 @@ public class ExceptionHandlerController {
 
     private final MessageSource messageSource;
 
-    public ExceptionHandlerController(MessageSource message) {
-        this.messageSource = message;
+    public ExceptionHandlerController(MessageSource messageSource) {
+        this.messageSource = messageSource;
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<List<ErrorMessageDTO>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        List<ErrorMessageDTO> dto = new ArrayList<>();
+        List<ErrorMessageDTO> errors = createErrorMessages(e);
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CompanyAlreadyExistsException.class)
+    public ResponseEntity<ErrorMessageDTO> handleCompanyAlreadyExistsException(CompanyAlreadyExistsException e) {
+        ErrorMessageDTO error = new ErrorMessageDTO(e.getMessage(), "email");
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorMessageDTO> handleGenericException(Exception e) {
+        ErrorMessageDTO error = new ErrorMessageDTO("An unexpected error occurred.", "error");
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private List<ErrorMessageDTO> createErrorMessages(MethodArgumentNotValidException e) {
+        List<ErrorMessageDTO> errorMessages = new ArrayList<>();
 
         e.getBindingResult().getFieldErrors().forEach(err -> {
             String message = messageSource.getMessage(err, LocaleContextHolder.getLocale());
             ErrorMessageDTO error = new ErrorMessageDTO(message, err.getField());
-            dto.add(error);
+            errorMessages.add(error);
         });
 
-        return new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
+        return errorMessages;
     }
 }
