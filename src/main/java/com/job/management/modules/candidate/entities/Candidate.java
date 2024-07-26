@@ -1,19 +1,25 @@
 package com.job.management.modules.candidate.entities;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
+@Entity(name = "tb_candidate")
 public class Candidate {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @NotBlank
+    @Column(name = "full_name")
     private String fullName;
 
     @Email(message = "O campo [email] deve conter um e-mail válido")
@@ -26,5 +32,7 @@ public class Candidate {
     private String location;
     private String curriculum;
 
+    @CreationTimestamp
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 }
