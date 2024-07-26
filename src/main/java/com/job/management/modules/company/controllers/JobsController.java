@@ -17,25 +17,30 @@ import java.util.UUID;
 @RequestMapping("/company/jobs")
 public class JobsController {
 
-    @Autowired
-    private CreateJobsUseCase createJobsUseCase;
+  @Autowired
+  private CreateJobsUseCase createJobsUseCase;
 
-    public ResponseEntity<Object> create(@Valid @RequestBody CreateJobDTO createJobDTO, HttpServletRequest request) {
-        var companyId = request.getAttribute("company_id");
+  public ResponseEntity<Object> create(@Valid @RequestBody CreateJobDTO createJobDTO, HttpServletRequest request) {
+    var companyId = request.getAttribute("company_id");
 
-        try {
-            var jobs = Jobs.builder()
-                    .benefits(createJobDTO.benefits())
-                    .companyId(UUID.fromString(companyId.toString()))
-                    .description(createJobDTO.description())
-                    .level(createJobDTO.level())
-                    .build();
+    try {
+      var jobs = Jobs.builder()
+        .companyId(UUID.fromString(companyId.toString()))
+        .title(createJobDTO.title())
+        .location(createJobDTO.location())
+        .salary(createJobDTO.salary())
+        .status(createJobDTO.status())
+        .benefits(createJobDTO.benefits())
+        .description(createJobDTO.description())
+        .requirements(createJobDTO.requirements())
+        .level(createJobDTO.level())
+        .build();
 
-            var result = this.createJobsUseCase.execute(jobs);
-            return ResponseEntity.ok().body(result);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-
+      var result = this.createJobsUseCase.execute(jobs);
+      return ResponseEntity.ok().body(result);
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
     }
+
+  }
 }
