@@ -3,12 +3,12 @@ package com.job.management.modules.company.usecases;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.job.management.exceptions.EmailNotFoundException;
 import com.job.management.modules.company.dto.AuthCompanyDTO;
 import com.job.management.modules.company.dto.AuthCompanyResponseDTO;
 import com.job.management.modules.company.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class AuthCompanyUseCase {
     private PasswordEncoder passwordEncoder;
 
     public AuthCompanyResponseDTO execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
-        var company = this.companyRepository.findByEmail(authCompanyDTO.email()).orElseThrow(() -> new UsernameNotFoundException("email/password incorrect"));
+        var company = this.companyRepository.findByEmail(authCompanyDTO.email()).orElseThrow(EmailNotFoundException::new);
 
         var passwordMatches = this.passwordEncoder.matches(authCompanyDTO.password(), company.getPassword());
 
@@ -48,9 +48,7 @@ public class AuthCompanyUseCase {
                 .withClaim("roles", List.of("COMPANY"))
                 .sign(algorithm);
 
-        return AuthCompanyResponseDTO.builder()
-                .access_token(token)
-                .expires_in(expiresIn.toEpochMilli())
-                .build();
+
+        return new AuthCompanyResponseDTO(token, expiresIn.toEpochMilli());
     }
 }
