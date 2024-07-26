@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/company")
 public class CompanyController {
 
-    @Autowired
-    private CreateCompanyUseCase createCompanyUseCase;
+  @Autowired
+  private CreateCompanyUseCase createCompanyUseCase;
 
-    @PostMapping("/")
-    public ResponseEntity<Object> create(@Valid @RequestBody Company company) {
-        try {
-            var result = this.createCompanyUseCase.execute(company);
-            return ResponseEntity.ok().body(result);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+  @PostMapping("/")
+  public ResponseEntity<Object> create(@Valid @RequestBody Company company) {
+    try {
+      var result = this.createCompanyUseCase.execute(company);
+      return ResponseEntity.ok().body(result);
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
     }
+  }
 }

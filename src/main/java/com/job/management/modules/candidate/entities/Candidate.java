@@ -14,25 +14,25 @@ import java.util.UUID;
 @Entity(name = "tb_candidate")
 public class Candidate {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 
-    @NotBlank
-    @Column(name = "full_name")
-    private String fullName;
+  @NotBlank
+  @Column(name = "full_name")
+  private String fullName;
 
-    @Email(message = "O campo [email] deve conter um e-mail válido")
-    private String email;
+  @Email(message = "O campo [email] deve conter um e-mail válido")
+  private String email;
 
-    @Length(min = 8, max = 100, message = "A senha deve conter entre (8) e (100) caracteres")
-    private String password;
+  @Length(min = 8, max = 100, message = "A senha deve conter entre (8) e (100) caracteres")
+  private String password;
 
-    private String description;
-    private String location;
-    private String curriculum;
+  private String description;
+  private String location;
+  private String curriculum;
 
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+  @CreationTimestamp
+  @Column(name = "created_at")
+  private LocalDateTime createdAt;
 }

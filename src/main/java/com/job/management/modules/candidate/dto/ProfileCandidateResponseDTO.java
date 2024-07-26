@@ -17,4 +17,6 @@ public class ProfileCandidateResponseDTO {
   private String description;
   private String fullName;
   private String email;
+  private String location;
+  private String curriculum;
 }
